@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "state": "playing",
+  "turn": "x",
+  "board": [
+    [ "-", "-", "-" ],
+    [ "-", "-", "-" ],
+    [ "-", "-", "-" ]
+  ],
+  "winner": null,
+  "x_total_wins": 0,
+  "y_total_wins": 0
+}

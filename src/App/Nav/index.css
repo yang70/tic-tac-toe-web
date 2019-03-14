@@ -1,0 +1,8 @@
+.nav-container {
+  display: flex;
+  border: 1px solid red;
+}
+
+.nav-container > div {
+  padding: 5px;
+}

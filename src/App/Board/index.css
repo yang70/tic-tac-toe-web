@@ -1,0 +1,46 @@
+.board-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.board-container > .column > div {
+  width: 100px;
+  height: 100px;
+}
+
+.cell-1 {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell-2 {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell-3 {
+  border-bottom: 1px solid black;
+}
+
+.cell-4 {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell-5 {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell-6 {
+  border-bottom: 1px solid black;
+}
+
+.cell-7 {
+  border-right: 1px solid black;
+}
+
+.cell-8 {
+  border-right: 1px solid black;
+}
