@@ -4,12 +4,10 @@ import './index.css';
 
 class Nav extends Component {
   render() {
-    console.log(this.props.game);
-    
     return (
       <nav className="nav-container">
         <div className="new-button">
-          <NewButton />
+          <NewButton newGame={this.props.newGame}/>
         </div>
         
         <div className="header">
