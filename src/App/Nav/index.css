@@ -1,6 +1,14 @@
 .nav-container {
   display: flex;
-  border: 1px solid red;
+  background: #FED530;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.header > h1 {
+  margin: 0;
 }
 
 .nav-container > div {

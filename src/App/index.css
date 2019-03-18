@@ -1,5 +1,21 @@
+.app-container {
+  background: #36389A;
+  height: 100%;
+}
+
 .turn-container {
   text-align: center;
+  color: #6bd7d6;
+}
+
+.hidden {
+  display: none;
+}
+
+.win-totals-container {
+  display: flex;
+  justify-content: center;
+  color: #6bd7d6;
 }
 
 .loading {
@@ -14,11 +30,16 @@
 }
 
 .loading-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -25px;
-  margin-left: -25px;
+  height: 100%;
+  width: 100%;
+  background: #36389A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.red-background {
+  background: #E6296D;
 }
 
 @keyframes spin {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Nav from './Nav'
-import Board from './Board'
-import Game from '../sample_game.json'
+import Nav from './Nav';
+import Board from './Board';
 import './index.css';
 
 class App extends Component {
@@ -11,9 +10,12 @@ class App extends Component {
     this.newGame = this.newGame.bind(this);
     this.setCell = this.setCell.bind(this);
     
+    var localStorageGame = localStorage.getItem( 'tic-tac-toe-gameId' );
+    
     this.state = {
-      isLoading: false,
+      isLoading: true,
       error: null,
+      gameId: localStorageGame,
       game: {
         "state": null,
         "turn": null,
@@ -29,23 +31,86 @@ class App extends Component {
     }
   }
   
-  fetchGame() {
+  fetchGame( forceNewGame ) {
+    this.setState( { isLoading: true, error: null } );
+    
+    let apiUrl = process.env.REACT_APP_API_URL;
+    
+    if( this.state.gameId && !forceNewGame ) {
+      apiUrl += "/games/" + this.state.gameId;
+    }
+    else {
+      apiUrl += "/new_game";
+    }
+    
+    fetch( apiUrl )
+      .then( response => response.json() )
+      .then( parsed => {
+        if( parsed.error ) {
+          this.setState( { error: true } );
+        }
+        else {
+          this.setState(
+            { 
+              game: parsed, 
+              isLoading: false 
+            }
+          ); 
+          
+          localStorage.setItem( "tic-tac-toe-gameId", parsed.id );
+        }
+      } )
+      .catch( error => {
+        this.setState( { error: true } );
+        
+        console.log( "parsing failed", error ); 
+      } );
+  }
+  
+  currentMessage() {
+    if( this.state.game.winner ) {
+      return this.state.game.winner === "draw" ? 
+             `Game is a draw.` : 
+             `${ this.state.game.winner } Wins The Game!`;
+    }
+    else {
+      return `Current Turn: ${ this.state.game.turn }`;
+    }
+  }
+  
+  updateGame( newGameState ) {
+    let apiUrl = process.env.REACT_APP_API_URL + "/games/" + newGameState.id;
+    const reqBody = JSON.stringify( { game: newGameState } )
+    
+    fetch( apiUrl, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: reqBody
+    } )
+      .then( response => response.json() )
+      .then( parsed => {
+        if( parsed.error ) {
+          this.setState( { error: true } );
+        }
+        else {
+          this.setState( { game: parsed } );
+        }
+      })
+      .catch( error => {
+        this.setState( { error: true } );
+        
+        console.log( "parsing failed", error );
+      } );
   }
   
   componentDidMount() {
-    this.setState({ isLoading: true });
-    console.log(this.state);
-    
-    fetch('http://localhost:3001/play')
-      .then( response => response.json())
-      .then(parsed => this.setState({ game: parsed, isLoading: false }))
-      .catch(error => console.log('parsing failed', error));
+    this.fetchGame();
   }
   
   newGame() {
-    this.setState({
-      game: Game
-    });
+    this.fetchGame( true );
   }
   
   setCell(e, indexOne, indexTwo, mark) {
@@ -53,9 +118,7 @@ class App extends Component {
     
     newGameState.board[indexOne][indexTwo] = mark;
     
-    this.setState({
-      game: newGameState
-    });
+    this.updateGame( newGameState );
   }
   
   render() {
@@ -63,26 +126,33 @@ class App extends Component {
     
     if(error) {
       return (
-        <h1>ERROR</h1>
+        <div className="error-container">
+          <h1>ERROR</h1>
+          <button onClick={ this.newGame }>New Game</button>
+        </div>
       )
     }
     else if(isLoading) {
       return (
-        <div className="loading-container">
+        <div className={ "loading-container" + ( game.turn === "O" ? " red-background" : "" ) }>
           <div className="loading"></div>
         </div>
       )
     }
     else {
       return (
-        <div className="app-container">
-          <Nav newGame={this.newGame} />
+        <div className={ "app-container" + ( game.turn === "O" ? " red-background" : "" ) }>
+          <Nav newGame={ this.newGame } />
           
           <div className="turn-container">
-            <h1>Current Turn: {game.turn}</h1>
+            <h1>{ this.currentMessage() }</h1>
           </div>
           
-          <Board board={game.board} setCell={this.setCell} turn={game.turn}/>
+          <Board game={ game } setCell={ this.setCell }/>
+          
+          <div className={ "win-totals-container" + ( game.winner ? "" : " hidden" ) }>
+            <h2>Overall Wins</h2>
+          </div>
         </div>
       );
     }

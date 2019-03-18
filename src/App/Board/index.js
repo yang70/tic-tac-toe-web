@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
-import Cell from '../Cell';
+import Column from '../Column';
 import './index.css';
 
 class Board extends Component {
   render() {
     const {
-      board,
-      turn,
+      game,
       setCell
     } = this.props;
     
+    const columnIndices = [
+      [ [ 1, 0, 0 ], [ 4, 1, 0 ], [ 7, 2, 0 ] ],
+      [ [ 2, 0, 1 ], [ 5, 1, 1 ], [ 8, 2, 1 ] ],
+      [ [ 3, 0, 2 ], [ 6, 1, 2 ], [ 9, 2, 2 ] ],
+    ] 
+    
     return (
       <div className="board-container">
-        <div className="column">
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={1} indexOne={0} indexTwo={0}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={4} indexOne={1} indexTwo={0}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={7} indexOne={2} indexTwo={0}/>
-        </div>
-        <div className="column">
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={2} indexOne={0} indexTwo={1}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={5} indexOne={1} indexTwo={1}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={8} indexOne={2} indexTwo={1}/>
-        </div>
-        <div className="column">
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={3} indexOne={0} indexTwo={2}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={6} indexOne={1} indexTwo={2}/>
-          <Cell board={board} turn={turn} setCell={setCell} cellNumber={9} indexOne={2} indexTwo={2}/>
-        </div>
+        { 
+          columnIndices.map( ( groupArray ) => {
+            return <Column game={ game } 
+                           setCell={ setCell } 
+                           groupArray={ groupArray } />
+          } )
+        }
       </div>
     );
   }

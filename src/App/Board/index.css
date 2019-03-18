@@ -1,6 +1,11 @@
 .board-container {
   margin-top: 50px;
   display: flex;
+  margin: auto;
+  background: #B0ADFE;
+  max-width: 310px;
+  padding: 10px;
+  border-radius: 5px;
   justify-content: center;
 }
 
@@ -10,37 +15,37 @@
 }
 
 .cell-1 {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-2 {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-3 {
-  border-bottom: 1px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-4 {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-5 {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-6 {
-  border-bottom: 1px solid black;
+  border-bottom: 5px solid black;
 }
 
 .cell-7 {
-  border-right: 1px solid black;
+  border-right: 5px solid black;
 }
 
 .cell-8 {
-  border-right: 1px solid black;
+  border-right: 5px solid black;
 }

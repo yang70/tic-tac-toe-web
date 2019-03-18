@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 
-class Board extends Component {
+class Cell extends Component {
   render() {
     const { 
       cellNumber, 
@@ -11,11 +11,16 @@ class Board extends Component {
       board,
       turn
     } = this.props;
+    
+    const mark = board[ indexOne ][ indexTwo ];
       
     return (
-      <div className={ `cell cell-${cellNumber}` } onClick={(e) => setCell(e, indexOne, indexTwo, turn)}>{board[indexOne][indexTwo]}</div>
+      <div className={ `cell cell-${ cellNumber }` } 
+           onClick={ ( e ) => setCell( e, indexOne, indexTwo, turn ) }>
+        { mark === "-" ? "" : mark }
+      </div>
     );
   }
 }
 
-export default Board;
+export default Cell;
