@@ -25,7 +25,8 @@ class Column extends Component {
                            setCell={ this.setCell( game, group, setCell ) } 
                            cellNumber={ group[ 0 ] } 
                            indexOne={ group[ 1 ] } 
-                           indexTwo={ group[ 2 ] }/>
+                           indexTwo={ group[ 2 ] } 
+                           key={ ( group[ 0 ] ) } />
             } )
           }
         </div>
